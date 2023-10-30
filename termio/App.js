@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import UniLetras from './src/components/uni_letra';
+import Solo from './src/screens/solo';
+
 
 export default function App() {
     return (
         <View style={styles.container}>
-            <StatusBar style="auto" />
-            <UniLetras></UniLetras>
+            <StatusBar style="auto"/>
+            <Solo></Solo>
         </View>
     );
 }
@@ -14,7 +15,7 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#403a35', /** */
+        backgroundColor: '#825e8a', /** */
         alignItems: 'center',
         justifyContent: 'center',
     }
