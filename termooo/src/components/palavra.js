@@ -1,86 +1,45 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import React, { useRef } from "react";
+import { StyleSheet, View, TextInput } from "react-native";
 
-export default function Palavra(variavel) {
-  variavel = "ativado";
-  if (variavel == "ativado") {
-    return (
-      <View style={styles.linha}>
-        <View>
+export default function Palavra() {
+  const textInputRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+
+  const handleInputChange = (index, text) => {
+    if (text.length === 0 && index > 0) {
+      textInputRefs[index - 1].current.focus();
+    } else if (text.length > 0 && index < textInputRefs.length - 1) {
+      textInputRefs[index + 1].current.focus();
+    }
+  };
+
+  return (
+    <View style={styles.linha}>
+      {textInputRefs.map((inputRef, index) => (
+        <View key={index}>
           <View style={styles.caixaAtivado}>
-            <TextInput style={styles.textoAtivado} placeholder="T" maxLength={1}></TextInput>
+            <TextInput
+              style={styles.textoAtivado}
+              placeholder="T"
+              maxLength={1}
+              onChangeText={(text) => handleInputChange(index, text)}
+              ref={inputRef}
+            />
           </View>
         </View>
-        <View>
-          <View style={styles.caixaAtivado}>
-            <TextInput style={styles.textoAtivado} placeholder="E" maxLength={1}></TextInput>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixaAtivado}>
-            <TextInput style={styles.textoAtivado} placeholder="R" maxLength={1}></TextInput>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixaAtivado}>
-            <TextInput style={styles.textoAtivado} placeholder="M" maxLength={1}></TextInput>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixaAtivado}>
-            <TextInput style={styles.textoAtivado} placeholder="O" maxLength={1}></TextInput>
-          </View>
-        </View>
-      </View>
-    );
-  } 
-  else {
-    return (
-      <View style={styles.linha}>
-        <View>
-          <View style={styles.caixa}>
-            <Text style={styles.texto} placeholder="T"></Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixa}>
-            <Text style={styles.texto} placeholder="E"></Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixa}>
-            <Text style={styles.texto} placeholder="R"></Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixa}>
-            <Text style={styles.texto} placeholder="M"></Text>
-          </View>
-        </View>
-        <View>
-          <View style={styles.caixa}>
-            <Text style={styles.texto} placeholder="O"></Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
+      ))}
+    </View>
+  );
 }
+
 const styles = StyleSheet.create({
   linha: {
     flexDirection: "row",
-  },
-  caixa: {
-    backgroundColor: "#000",
-    opacity: 0.45,
-    height: 50,
-    width: 50,
-    borderRadius: 5,
-    margin: 5,
-  },
-  texto: {
-    textAlign: "center",
-    fontSize: 40,
-    color: "#fff",
   },
   caixaAtivado: {
     borderWidth: 3.5,
